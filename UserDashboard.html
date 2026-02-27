@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+    .sidebar {
+      width: 220px;
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+      height: 130vh; 
+
+    }
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      background: gray;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      background-image: url("images/BG2.avif");
+       /* static pic path */ 
+       
+       background-size: cover;
+        background-position: center;
+    }
+    .content {
+      flex: 1;
+      padding: 20px;
+      background-image: url("images/BG.jpg"); 
+       background-size: cover;
+        background-position: center; 
+         background-repeat: no-repeat;
+        min-height: 130vh;
+    }
+    .nav {
+      list-style: none;
+      padding: 0;
+    }
+    .nav li {
+      margin: 15px 0;
+    }
+    .nav a {
+      color: white;
+      text-decoration: none;
+    }
+    .nav a:hover {
+      background: #34495e;
+      padding-left: 10px;
+      transition: 0.3s;
+    }
+    
+    form {
+      display: flex;
+      flex-direction: column;
+      max-width: 300px;
+    }
+    form input, button {
+      margin: 8px 0;
+      padding: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+    th {
+      background: #f4f4f4;
+    }
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    tr:hover {
+      background: #e0f7fa;
+    }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .content {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="profile-pic"></div>
+      <ul class="nav">
+        <li><a href="#profile">My Profile</a></li>
+        <li><a href="#security">Change Password</a></li>
+        <li><a href="#activity">Activity</a></li>
+      </ul>
+    </aside>
+
+    <!-- Content Area -->
+    <main class="content">
+      <!-- Profile Section -->
+      <section id="profile">
+        <h2>My Profile</h2>
+        <form id="profileForm">
+          <label>Name:</label>
+          <input type="text" id="nameInput" placeholder="Enter name">
+          <label>Email:</label>
+          <input type="email" id="emailInput" placeholder="Enter email">
+          <label>Upload Photo:</label>
+          <input type="file" id="photoInput">
+          <button type="submit">Save</button>
+        </form>
+
+        <!-- Display updated info -->
+        <div id="profileDisplay" style="margin-top:20px;">
+          <p><strong>Name:</strong> <span id="displayName">Not set</span></p>
+          <p><strong>Email:</strong> <span id="displayEmail">Not set</span></p>
+          <p><strong>Photo:</strong> <span id="displayPhoto">No file chosen</span></p>
+        </div>
+      </section>
+
+      <!-- Security Section -->
+      <section id="security">
+        <h2>Change Password</h2>
+        <form id="passwordForm">
+          <label>Current Password:</label>
+          <input type="password">
+          <label>New Password:</label>
+          <input type="password" id="newPass">
+          <label>Repeat Password:</label>
+          <input type="password" id="repeatPass">
+          <button type="submit">Save</button>
+        </form>
+      </section>
+
+      <!-- Activity Section -->
+      <section id="activity">
+        <h2>Recent Activity</h2>
+        <table>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Activity</th>
+          </tr>
+          <tr>
+            <td>27 Feb 2026</td>
+            <td>07:30 AM</td>
+            <td>Login</td>
+          </tr>
+          </table>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Profile form update
+    document.getElementById("profileForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      let name = document.getElementById("nameInput").value;
+      let email = document.getElementById("emailInput").value;
+      let photo = document.getElementById("photoInput").files[0];
+
+      document.getElementById("displayName").textContent = name || "Not set";
+      document.getElementById("displayEmail").textContent = email || "Not set";
+      document.getElementById("displayPhoto").textContent = photo ? photo.name : "No file chosen";
+
+      alert("Profile updated successfully!");
+    });
+
+    // Password form validation
+    document.getElementById("passwordForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      let newPass = document.getElementById("newPass").value;
+      let repeatPass = document.getElementById("repeatPass").value;
+
+      if (newPass.length < 8) {
+        alert("Password must be at least 8 characters!");
+      } else if (newPass !== repeatPass) {
+        alert("Passwords do not match!");
+      } else {
+        alert("Password changed successfully!");
+      }
+    });
+  </script>
+</body>
+</html>
